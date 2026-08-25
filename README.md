@@ -21,7 +21,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now ollama
 ollama pull qwen3:8b
 sudo apt install python3-requests
-python3 ~/chat_bot.py
+python3 ~/1c-ai-assistant/chat_bot.py
 Сервер вручную запускать НЕ нужно — терминал полностью свободен.
 ## Заметки по использованию
 - `daria@meow:~$` — терминал, `>>>` — приглашение бота. Не путать.
