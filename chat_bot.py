@@ -13,17 +13,21 @@ SYSTEM_PROMPT = """Ты — эксперт по разработке в 1С:Пр
 6. Приводи примеры кода с комментариями.
 7. Всегда объясняй, где и как запустить код: какой объект создать в Конфигураторе 1С (обработка, общий модуль, форма), куда вставить код и какую кнопку нажать, чтобы увидеть результат."""
 
+history = [{'role': 'system', 'content': SYSTEM_PROMPT}]
+
 while True:
     q = input('>>> ')
     if q.lower() in ('exit', 'quit', 'пока'):
         break
+    history.append({'role': 'user', 'content': q})
     try:
         r = requests.post(
-            'http://localhost:11434/api/generate',
-            json={'model': 'qwen3:8b', 'prompt': q, 'system': SYSTEM_PROMPT, 'stream': True},
+            'http://localhost:11434/api/chat',
+            json={'model': 'qwen3:8b', 'messages': history, 'stream': True},
             timeout=600,
             stream=True
         )
+        answer = ''
         for line in r.iter_lines():
             if not line:
                 continue
@@ -31,8 +35,11 @@ while True:
             if 'error' in data:
                 print('\nОшибка сервера:', data['error'])
                 break
-            print(data.get('response', ''), end='', flush=True)
+            chunk = data.get('message', {}).get('content', '')
+            answer += chunk
+            print(chunk, end='', flush=True)
         print()
+        history.append({'role': 'assistant', 'content': answer})
     except requests.exceptions.ConnectionError:
         print('Не могу подключиться к Ollama. Проверь: systemctl status ollama')
     except requests.exceptions.Timeout:
