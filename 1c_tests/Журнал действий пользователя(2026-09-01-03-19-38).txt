@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<uilog xmlns:d1p1="http://v8.1c.ru/8.3/uilog">
+	<ClientApplicationWindow isMain="true">
+		<CommandInterface>
+			<CommandInterfaceGroup title="Панель разделов">
+				<CommandInterfaceButton title="Администрирование">
+					<click/>
+				</CommandInterfaceButton>
+			</CommandInterfaceGroup>
+			<CommandInterfaceGroup title="Меню функций">
+				<CommandInterfaceGroup title="Сервис">
+					<CommandInterfaceButton title="Роли пользователей">
+						<click/>
+					</CommandInterfaceButton>
+				</CommandInterfaceGroup>
+			</CommandInterfaceGroup>
+		</CommandInterface>
+	</ClientApplicationWindow>
+	<ClientApplicationWindow caption="Роли пользователей">
+		<Form title="Роли пользователей">
+			<FormField name="ИмяПользователя" title="Имя пользователя">
+				<inputText text="адм"/>
+				<executeChoiceFromChoiceList presentation="Администратор"/>
+			</FormField>
+			<FormField name="ИмяРоли" title="Имя роли">
+				<activate/>
+				<executeChoiceFromChoiceList presentation="Администратор"/>
+			</FormField>
+			<FormButton name="Применить" title="Роли">
+				<activate/>
+				<click/>
+			</FormButton>
+		</Form>
+		<close/>
+	</ClientApplicationWindow>
+	<ClientApplicationWindow startPage="true">
+		<close/>
+	</ClientApplicationWindow>
+	<ClientApplicationWindow isMain="true">
+		<close/>
+	</ClientApplicationWindow>
+</uilog>
